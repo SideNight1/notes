@@ -7,9 +7,11 @@
 <body>
     <h1>Мои заметки</h1>
 
-    <p>
-        <a href="{% url 'notes:create' %}">Добавить заметку</a>
-    </p>
+    <p><a href="{% url 'notes:create' %}">Добавить заметку</a></p>
+
+    {% if is_paginated %}
+        <p>Всего заметок: {{ page_obj.paginator.count }}</p>
+    {% endif %}
 
     {% if notes %}
         <ul>
@@ -27,6 +29,24 @@
         </ul>
     {% else %}
         <p>Пока нет заметок.</p>
+    {% endif %}
+
+    {% if is_paginated %}
+        <nav aria-label="Страницы">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">Первая</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Назад</a>
+            {% endif %}
+
+            <span>
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Вперёд</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+            {% endif %}
+        </nav>
     {% endif %}
 </body>
 </html>

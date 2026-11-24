@@ -9,7 +9,8 @@ class NoteListView(ListView):
     model = Note
     template_name = "notes/note_list.html"
     context_object_name = "notes"
-    ordering = ("-created_at",)
+    ordering = ("-created_at", "-pk")
+    paginate_by = 50
 
 
 class NoteCreateView(CreateView):

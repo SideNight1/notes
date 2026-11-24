@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Заметки</title>
+</head>
+<body>
+    <h1>Мои заметки</h1>
+
+    <p>
+        <a href="{% url 'notes:create' %}">Добавить заметку</a>
+    </p>
+
+    {% if notes %}
+        <ul>
+            {% for note in notes %}
+                <li>
+                    <h2>{{ note.title }}</h2>
+                    <p>{{ note.content|linebreaksbr }}</p>
+                    <p>
+                        <small>Создано: {{ note.created_at|date:"d.m.Y H:i" }}</small>
+                    </p>
+                    <a href="{% url 'notes:update' note.pk %}">Изменить</a>
+                    <a href="{% url 'notes:delete' note.pk %}">Удалить</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Пока нет заметок.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Заметка</title>
+</head>
+<body>
+    {% if object %}
+        <h1>Редактировать заметку</h1>
+    {% else %}
+        <h1>Добавить заметку</h1>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <p><a href="{% url 'notes:list' %}">Вернуться к списку</a></p>
+</body>
+</html>
